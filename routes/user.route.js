@@ -13,6 +13,7 @@ const {
     userExists
 } = require('../helpers/validators.helper');
 const { validateFields } = require('../middlewares/validate-fields.middleware');
+const { validateJWT } = require('../middlewares/validate-jwt.middleware');
 
 const router = Router();
 
@@ -36,11 +37,10 @@ router.post('/', [
 ], postUsers);
 
 router.delete('/:id', [
+    validateJWT,
     check('id', 'Invalid ID').isMongoId(),
     check('id').custom(userExists),
     validateFields
-],deleteUsers);
-
-router.patch('/', patchUsers);    
+],deleteUsers);  
 
 module.exports = router;

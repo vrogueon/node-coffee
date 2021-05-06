@@ -47,16 +47,12 @@ const putUsers = async(req, res = response) => {
 
 const deleteUsers = async(req, res = response) => {
     const {id} = req.params;
+    const uid = req.uid;
 
     const user = await User.findByIdAndUpdate(id, {status: false});
     res.json({
-        user
-    });
-}
-
-const patchUsers = (req, res = response) => {
-    res.json({
-        msg: 'Patch API Controller'
+        user,
+        uid
     });
 }
 
@@ -65,5 +61,4 @@ module.exports = {
     postUsers,
     putUsers,
     deleteUsers,
-    patchUsers
 }
