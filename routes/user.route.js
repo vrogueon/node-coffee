@@ -5,7 +5,6 @@ const {
     postUsers,
     putUsers,
     deleteUsers,
-    patchUsers
 } = require('../controllers/user.controller');
 const { 
     isRoleValid, 
