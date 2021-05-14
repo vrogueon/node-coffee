@@ -47,13 +47,19 @@ const putUsers = async(req, res = response) => {
 
 const deleteUsers = async(req, res = response) => {
     const {id} = req.params;
-    const uid = req.uid;
+    
+    try {
+        const user = await User.findByIdAndUpdate(id, {status: false});    
+        res.json(user);
+    } catch (error) {
+        console.log(error);
+        return res.status(500).json({
+            msg: `Server error`
+        });
+    }
+    
 
-    const user = await User.findByIdAndUpdate(id, {status: false});
-    res.json({
-        user,
-        uid
-    });
+    
 }
 
 module.exports = {

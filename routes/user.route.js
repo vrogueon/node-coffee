@@ -12,8 +12,13 @@ const {
     emailExists, 
     userExists
 } = require('../helpers/validators.helper');
-const { validateFields } = require('../middlewares/validate-fields.middleware');
-const { validateJWT } = require('../middlewares/validate-jwt.middleware');
+
+const {
+    validateFields,
+    validateJWT,
+    isAdminRole,
+    hasRole
+} = require('../middlewares');
 
 const router = Router();
 
@@ -38,6 +43,8 @@ router.post('/', [
 
 router.delete('/:id', [
     validateJWT,
+    // isAdminRole,
+    hasRole('ADMIN_ROLE', 'USER_ROLE'),
     check('id', 'Invalid ID').isMongoId(),
     check('id').custom(userExists),
     validateFields

@@ -20,6 +20,7 @@ const userSchema = Schema({
     role: {
         type: String,
         required: [true, 'Role is mandatory'],
+        default: 'USER_ROLE',
         enum: ['ADMIN_ROLE', 'USER_ROLE']
     },
     status: {
