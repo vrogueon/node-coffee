@@ -20,7 +20,7 @@ const getCategories = async (req, res = response) => {
 
 const getCategory = async(req, res = response) => {
     const {id} = req.params;
-    const category = await (await Category.findById(id)).populate('user', 'name');
+    const category = await Category.findById(id).populate('user', 'name');
 
     res.json(category);
 }
@@ -30,7 +30,7 @@ const createCategory = async (req, res = response, next) => {
     try {
         const name = req.body.name.toUpperCase();
         const categoryDB = await User.findOne({name});
-        console.log(categoryDB);
+
         if(categoryDB) {
             return res.status(400).json({
                 msg: `Category ${categoryDB.name} already exists` 
